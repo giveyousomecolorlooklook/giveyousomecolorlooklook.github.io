@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Google AI Studio App</title>
+    <script>
+      // Mitigate "Uncaught TypeError: Cannot set property fetch of #<Window> which has only a getter"
+      // This error often comes from browser extensions or polyfills trying to overwrite window.fetch.
+      (function() {
+        try {
+          const originalFetch = window.fetch;
+          if (originalFetch && !Object.getOwnPropertyDescriptor(window, 'fetch')?.set) {
+            Object.defineProperty(window, 'fetch', {
+              get: () => originalFetch,
+              set: (v) => { console.warn('Attempted to overwrite window.fetch ignored.', v); },
+              configurable: true
+            });
+          }
+        } catch (e) {
+          // Ignore errors during mitigation
+        }
+      })();
+    </script>
+    <script type="module" crossorigin src="/mdxPathTex/assets/index-8bWiwFqX.js"></script>
+    <link rel="stylesheet" crossorigin href="/mdxPathTex/assets/index-B7OH9hUV.css">
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>
+
